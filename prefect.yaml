@@ -1,0 +1,37 @@
+name: "streams-automation"
+version: "1.1.0"
+
+# SSH-based pull configuration using shell script
+pull:
+  - prefect.deployments.steps.run_shell_script:
+      script: |
+        git clone git@github.com:Sanj-1873/prefect-tests.git .
+
+      stream_output: false
+
+# Build configuration
+build: null
+
+# Push configuration  
+push: null
+
+# Deployment definitions
+deployments:
+  - name: "Calculator Automation - My Stream"
+    entrypoint: "flows/my_calculator_stream.py:calculator_automation_stream"
+    work_pool:
+      name: "windows-rpa-pool"  # Use appropriate work pool
+    tags: ["RPA", "DEMO", "CALCULATOR", "MY-STREAM"]
+    description: "Simple calculator automation for learning Streams"
+    parameters:
+      calculations: ["15+25", "100-37", "12*8"]
+    parameter_openapi_schema:
+      properties:
+        calculations:
+          title: "Math Expressions"
+          description: "List of calculations to perform"
+          type: "array"
+          items:
+            type: "string"
+          default: ["15+25", "100-37", "12*8"]
+    schedule: null
