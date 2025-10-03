@@ -5,9 +5,9 @@ version: "1.1.0"
 pull:
   - prefect.deployments.steps.run_shell_script:
       script: |
-        git clone git@github.com:Sanj-1873/prefect-tests.git .
+        https://github.com/Sanj-1873/prefect-tests.git
 
-      stream_output: false
+      stream_output: true
 
 # Build configuration
 build: null
